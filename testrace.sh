@@ -221,7 +221,7 @@ test_all_detail(){
 result_all(){
 	ISP_name=$2
 	echo -e "${Info} 测试路由 到 ${ISP_name} 中 ..."
-	./besttrace -q 1 $1
+	./besttrace -q 1 -m 20 $1
 	echo -e "${Info} 测试路由 到 ${ISP_name} 完成 ！"
 }
 
