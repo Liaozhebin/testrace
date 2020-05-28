@@ -1,9 +1,10 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
-Green_font="\033[32m" && Red_font="\033[31m" && Font_suffix="\033[0m"
+Green_font="\033[32m" && Red_font="\033[31m" && Yellow_font="\033[33m" && Font_suffix="\033[0m"
 Info="${Green_font}[Info]${Font_suffix}"
 Error="${Red_font}[Error]${Font_suffix}"
+Split_line="${Yellow_font}===============split_line==================${Font_suffix}"
 echo -e "${Green_font}
 #======================================
 # Project: testrace
@@ -16,13 +17,14 @@ echo -e "${Green_font}
 #======================================
 ${Font_suffix}"
 
+#检查系统环境并安装依赖
 check_system(){
 	if   [[ ! -z "`cat /etc/issue | grep -iE "debian"`" ]]; then
-		apt-get install traceroute mtr -y
+		apt-get install traceroute mtr unzip -y
 	elif [[ ! -z "`cat /etc/issue | grep -iE "ubuntu"`" ]]; then
-		apt-get install traceroute mtr -y
+		apt-get install traceroute mtr unzip -y
 	elif [[ ! -z "`cat /etc/redhat-release | grep -iE "CentOS"`" ]]; then
-		yum install traceroute mtr -y
+		yum install traceroute mtr unzip -y
 	else
 		echo -e "${Error} system not support!" && exit 1
 	fi
@@ -35,7 +37,7 @@ directory(){
 	cd /home/testrace
 }
 install(){
-	[[ ! -d /home/testrace/besttrace ]] && wget https://raw.githubusercontent.com/nanqinlang-script/testrace/master/besttrace.tar.gz && tar -zxf besttrace.tar.gz && rm besttrace.tar.gz
+	[[ ! -d /home/testrace/besttrace ]] && wget https://github.com/Liaozhebin/testrace/raw/master/besttrace4linux.zip && unzip besttrace4linux.zip && rm besttrace4linux.zip
 	[[ ! -d /home/testrace/besttrace ]] && echo -e "${Error} download failed, please check!" && exit 1
 	chmod -R +x /home/testrace
 }
@@ -143,7 +145,7 @@ node_4(){
 }
 result_alternative(){
 	echo -e "${Info} 测试路由 到 ${ISP_name} 中 ..."
-	./besttrace -q 1 ${ip} | tee -a -i /home/testrace/testrace.log 2>/dev/null
+	./besttrace -q 2 ${ip} | tee -a -i /home/testrace/testrace.log 2>/dev/null
 	echo -e "${Info} 测试路由 到 ${ISP_name} 完成 ！"
 
 	repeat_test_alternative
@@ -164,13 +166,33 @@ repeat_test_alternative(){
 
 
 test_all(){
+	echo -e "测试电信路由开始。${Split_line}"
 	result_all	'101.227.255.45'	'上海电信(天翼云)'
 	result_all	'117.28.254.129'	'厦门电信CN2'
-
+	result_all	'58.51.94.106'		'湖北襄阳电信'
+	result_all	'182.98.238.226'	'江西南昌电信'
+	result_all	'router.liaozhebin.top'	'江西电信'
+	echo -e "测试电信路由结束。${Split_line}"
+	
+	echo -e "测试联通路由开始。${Split_line}"
 	result_all	'101.71.241.238'	'浙江杭州联通'
-
+	result_all	'221.13.70.244'		'西藏拉萨联通'
+	result_all	'113.207.32.65'		'重庆联通'
+	result_all	'61.168.23.74'		'河南郑州联通'
+	result_all	'112.122.10.26'		'安徽合肥联通'
+	result_all	'58.240.53.78'		'江苏南京联通' 
+	echo -e "测试联通路由结束。${Split_line}"
+	
+	echo -e "测试移动路由开始。${Split_line}"
 	result_all	'112.17.0.106'		'浙江杭州移动'
-
+	result_all	'120.209.140.60'	'安徽合肥移动'
+	result_all	'183.221.247.9'		'四川成都移动'
+	result_all	'221.130.188.251'	'上海移动' 
+	result_all	'223.74.88.159'		'广东湛江移动'
+	result_all	'39.161.242.45'		'江西南昌移动'
+	echo -e "测试移动路由结束。${Split_line}"
+	
+	echo -e "测试教育网路由开始。${Split_line}"
 	result_all	'202.205.6.30'		'北京教育网'
 
 	echo -e "${Info} 四网路由快速测试 已完成 ！"
@@ -178,7 +200,7 @@ test_all(){
 result_all(){
 	ISP_name=$2
 	echo -e "${Info} 测试路由 到 ${ISP_name} 中 ..."
-	./besttrace -q 1 $1
+	./besttrace -q 2 $1
 	echo -e "${Info} 测试路由 到 ${ISP_name} 完成 ！"
 }
 
