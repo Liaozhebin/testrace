@@ -7,10 +7,12 @@ Error="${Red_font}[Error]${Font_suffix}"
 echo -e "${Green_font}
 #======================================
 # Project: testrace
-# Version: 1.2
-# Author: nanqinlang
-# Blog:   https://sometimesnaive.org
-# Github: https://github.com/nanqinlang
+# Version: 0.1
+# Modified: Zhebin
+# Fork Version:testrace@1.2
+# Origin Author: nanqinlang
+# Blog:   https://592592.xyz
+# Github: https://github.com/liaozhebin
 #======================================
 ${Font_suffix}"
 
