@@ -183,7 +183,7 @@ test_all(){
 	echo -e "${Info}测试教育网路由开始。${Split_line}"
 	result_all	'202.205.6.30'		'北京教育网'
 
-	echo -e "${Info} 四网路由详细测试 已完成 ！"
+	echo -e "${Info} 四网路由快速测试 已完成 ！"
 }
 
 test_all_detail(){
