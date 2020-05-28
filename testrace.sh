@@ -164,38 +164,59 @@ repeat_test_alternative(){
 }
 
 
-
 test_all(){
-	echo -e "测试电信路由开始。${Split_line}"
+	echo -e "${Info}测试电信路由开始。${Split_line}"
+	result_all	'101.227.255.45'	'上海电信(天翼云)'
+	result_all	'117.28.254.129'	'厦门电信CN2'
+	echo -e "${Info}测试电信路由结束。${Split_line}"
+	
+	echo -e "${Info}测试联通路由开始。${Split_line}"
+	result_all	'101.71.241.238'	'浙江杭州联通'
+	result_all	'221.13.70.244'		'西藏拉萨联通'
+	echo -e "${Info}测试联通路由结束。${Split_line}"
+	
+	echo -e "${Info}测试移动路由开始。${Split_line}"
+	result_all	'112.17.0.106'		'浙江杭州移动'
+	result_all	'120.209.140.60'	'安徽合肥移动'
+	echo -e "${Info}测试移动路由结束。${Split_line}"
+	
+	echo -e "${Info}测试教育网路由开始。${Split_line}"
+	result_all	'202.205.6.30'		'北京教育网'
+
+	echo -e "${Info} 四网路由详细测试 已完成 ！"
+}
+
+test_all_detail(){
+	echo -e "${Info}测试电信路由开始。${Split_line}"
 	result_all	'101.227.255.45'	'上海电信(天翼云)'
 	result_all	'117.28.254.129'	'厦门电信CN2'
 	result_all	'58.51.94.106'		'湖北襄阳电信'
 	result_all	'182.98.238.226'	'江西南昌电信'
 	result_all	'router.liaozhebin.top'	'江西电信'
-	echo -e "测试电信路由结束。${Split_line}"
+	echo -e "${Info}测试电信路由结束。${Split_line}"
 	
-	echo -e "测试联通路由开始。${Split_line}"
+	echo -e "${Info}测试联通路由开始。${Split_line}"
 	result_all	'101.71.241.238'	'浙江杭州联通'
 	result_all	'221.13.70.244'		'西藏拉萨联通'
 	result_all	'113.207.32.65'		'重庆联通'
 	result_all	'61.168.23.74'		'河南郑州联通'
 	result_all	'112.122.10.26'		'安徽合肥联通'
 	result_all	'58.240.53.78'		'江苏南京联通' 
-	echo -e "测试联通路由结束。${Split_line}"
+	echo -e "${Info}测试联通路由结束。${Split_line}"
 	
-	echo -e "测试移动路由开始。${Split_line}"
+	echo -e "${Info}测试移动路由开始。${Split_line}"
 	result_all	'112.17.0.106'		'浙江杭州移动'
 	result_all	'120.209.140.60'	'安徽合肥移动'
 	result_all	'183.221.247.9'		'四川成都移动'
 	result_all	'221.130.188.251'	'上海移动' 
 	result_all	'223.74.88.159'		'广东湛江移动'
 	result_all	'39.161.242.45'		'江西南昌移动'
-	echo -e "测试移动路由结束。${Split_line}"
+	echo -e "${Info}测试移动路由结束。${Split_line}"
 	
-	echo -e "测试教育网路由开始。${Split_line}"
+	echo -e "${Info}测试教育网路由开始。${Split_line}"
 	result_all	'202.205.6.30'		'北京教育网'
 
-	echo -e "${Info} 四网路由快速测试 已完成 ！"
+	echo -e "${Info} 四网路由详细测试 已完成 ！"
 }
 result_all(){
 	ISP_name=$2
@@ -213,7 +234,7 @@ install
 cd besttrace
 
 echo -e "${Info} 选择你要使用的功能: "
-echo -e "1.选择一个节点进行测试\n2.四网路由快速测试\n3.手动输入 ip 进行测试"
+echo -e "1.选择一个节点进行测试\n2.四网路由快速测试\n3.四网路由详细测试\n4.手动输入 ip 进行测试"
 read -p "输入数字以选择:" function
 
 	while [[ ! "${function}" =~ ^[1-3]$ ]]
@@ -226,6 +247,8 @@ read -p "输入数字以选择:" function
 		test_alternative
 	elif [[ "${function}" == "2" ]]; then
 		test_all | tee -a -i /home/testrace/testrace.log 2>/dev/null
+	elif [[ "${function}" == "3" ]]; then
+		test_all_detail | tee -a -i /home/testrace/testrace.log 2>/dev/null
 	else
 		test_single
 	fi
