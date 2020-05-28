@@ -37,9 +37,9 @@ directory(){
 	cd /home/testrace
 }
 install(){
-	[[ ! -d /home/testrace/besttrace ]] && wget https://github.com/Liaozhebin/testrace/raw/master/besttrace4linux.zip && unzip besttrace4linux.zip && rm besttrace4linux.zip
-	[[ ! -d /home/testrace/besttrace ]] && echo -e "${Error} download failed, please check!" && exit 1
-	chmod -R +x /home/testrace
+	[[ ! -e /home/testrace/besttrace ]] && wget https://github.com/Liaozhebin/testrace/raw/master/besttrace4linux.zip && unzip besttrace4linux.zip && rm besttrace4linux.zip
+	[[ ! -e /home/testrace/besttrace ]] && echo -e "${Error} download failed, please check!" && exit 1
+	chmod -R +x /home/testrace/*
 }
 
 
