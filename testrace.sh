@@ -193,6 +193,7 @@ test_all_detail(){
 	result_all	'58.51.94.106'		'湖北襄阳电信'
 	result_all	'182.98.238.226'	'江西南昌电信'
 	result_all	'router.liaozhebin.top'	'江西电信'
+	result_all	'liaozhebin.top'	'aliyun杭州'
 	echo -e "${Info}测试电信路由结束。${Split_line}"
 	
 	echo -e "${Info}测试联通路由开始。${Split_line}"
