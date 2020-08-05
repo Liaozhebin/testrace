@@ -39,7 +39,7 @@ directory(){
 install(){
 	[[ ! -e /home/testrace/besttrace ]] && wget https://github.com/Liaozhebin/testrace/raw/master/besttrace4linux.zip && unzip besttrace4linux.zip && rm besttrace4linux.zip
 	[[ ! -e /home/testrace/besttrace ]] && echo -e "${Error} download failed, please check!" && exit 1
-	chmod -R +x /home/testrace/*
+	chmod -R +x /home/testrace/* && cp /home/testrace/besttrace /usr/bin/  #安装到系统Bin目录
 }
 
 
