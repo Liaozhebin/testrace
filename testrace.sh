@@ -165,6 +165,7 @@ repeat_test_alternative(){
 
 
 test_all(){
+	echo -e "${Info} 四网路由快速测试 开始 ！"
 	echo -e "${Info}测试电信路由开始。${Split_line}"
 	result_all	'101.227.255.45'	'上海电信(天翼云)'
 	result_all	'117.28.254.129'	'厦门电信CN2'
@@ -187,6 +188,7 @@ test_all(){
 }
 
 test_all_detail(){
+	echo -e "${Info} 四网路由详细测试 开始 ！"
 	echo -e "${Info}测试电信路由开始。${Split_line}"
 	result_all	'101.227.255.45'	'上海电信(天翼云)'
 	result_all	'117.28.254.129'	'厦门电信CN2'
